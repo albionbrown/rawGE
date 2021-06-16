@@ -1,8 +1,8 @@
 package com.albionbrown.rawge.gfx;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 
 import javax.imageio.ImageIO;
 
@@ -14,16 +14,28 @@ public class Image {
 	
 	public Image(String path)
 	{
-		
+		loadImageResource(getClass().getResourceAsStream(path));
+		initialiseImage();
+	}
+	
+	public Image(InputStream path)
+	{
+		loadImageResource(path);
+		initialiseImage();
+	}
+	
+	private void loadImageResource(InputStream path)
+	{
 		try {
-//			image = ImageIO.read(new File(path));
-			image = ImageIO.read(getClass().getResourceAsStream(path));
-		} 
+			image = ImageIO.read(path);
+		}
 		catch (IOException e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		
+	}
+	
+	private void initialiseImage()
+	{
 		w = image.getWidth();
 		h = image.getHeight();
 		// Reads all the pixel data into a 1D array
