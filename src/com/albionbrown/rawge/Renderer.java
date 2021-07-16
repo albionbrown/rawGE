@@ -49,6 +49,14 @@ public class Renderer {
 		p[x + y * pW] = value; 
 	}
 	
+	/**
+	 * Renders text using the Font class
+	 * @param text The test to be rendered
+	 * @param font The font class to use
+	 * @param offX X coordinate
+	 * @param offY Y coordinate
+	 * @param colour The colour to omit rendering
+	 */
 	public void drawText(String text, Font font, int offX, int offY, int colour)
 	{
 		text = text.toUpperCase();
@@ -60,6 +68,7 @@ public class Renderer {
 			
 			for (int y = 0; y < font.getFontImage().getH(); y++) {
 				for (int x = 0; x < font.getWidths()[unicode]; x++) {
+					// If the pixel is white (part of the character)
 					if (font.getFontImage().getP()[(x + font.getOffsets()[unicode]) + y * font.getFontImage().getW()] == 0xffffffff) {
 						setPixel(x + offX + offset, y + offY, colour);
 					}

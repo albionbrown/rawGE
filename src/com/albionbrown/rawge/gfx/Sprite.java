@@ -25,6 +25,16 @@ public abstract class Sprite {
 	public Sprite() {
 		
 	}
+	
+	public Sprite(Image image)
+	{
+		this.image = image;
+		this.width = image.getW();
+		this.height = image.getH();
+		this.x = 0;
+		this.y = 0;
+		this.render = false;
+	}
 
 	public Sprite(Input input)
 	{

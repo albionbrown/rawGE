@@ -7,27 +7,60 @@ public class Font {
 //	public static final Font STANDARD = new Font(GameContainer.getSystemPath() + "\\assets\\img\\font_test.png");
 
 	private Image fontImage;
+	
+	private int numberOfCharacters;
+	
 	private int[] offsets;
 	private int[] widths;
 	
-	public Font(String path)
+	private int startCharacterColour = 0xff0000ff;
+	private int endCharacterColour = 0xffffff00;
+	
+	public Font(String path, int numChars)
+	{																
+		this(new Image(path), numChars);
+	}
+	
+	public Font(Image image, int numChars)
+	{			
+		fontImage = image;
+		numberOfCharacters = numChars;
+	}
+	
+	/**
+	 * Default constructor
+	 */
+	public Font()
 	{
-																		
-		fontImage = new Image(path);
-		offsets = new int[59];
-		widths = new int[59];
+
+	}
+	
+	/**
+	 * Reads the font character widths into memory
+	 */
+	public void readImageCharacters()
+	{
+		offsets = new int[numberOfCharacters];
+		widths = new int[numberOfCharacters];
 		
 		int unicode = 0;
 		
-		for (int i = 0; i < fontImage.getW(); i++) {
+		if (fontImage != null) {
 			
-			if (fontImage.getP()[i] == 0xff0000ff) {
-				offsets[unicode] = i;
-			}
-			
-			if (fontImage.getP()[i] == 0xffffff00) {
-				widths[unicode] = i - offsets[unicode];
-				unicode++;
+			// For each pixel in the first row
+			for (int i = 0; i < fontImage.getW(); i++) {
+				
+				// If the pixel is the start colour, log the character's offset in the image
+				if (fontImage.getP()[i] == startCharacterColour) {
+					offsets[unicode] = i;
+					continue;
+				}
+				
+				// If the character is the end colour, log the character's width
+				if (fontImage.getP()[i] == endCharacterColour) {
+					widths[unicode] = i - offsets[unicode];
+					unicode++;
+				}
 			}
 		}
 	}
@@ -54,5 +87,29 @@ public class Font {
 
 	public void setWidths(int[] widths) {
 		this.widths = widths;
+	}
+
+	protected int getNumberOfCharacters() {
+		return numberOfCharacters;
+	}
+
+	protected void setNumberOfCharacters(int numberOfCharacters) {
+		this.numberOfCharacters = numberOfCharacters;
+	}
+
+	protected int getStartCharacterColour() {
+		return startCharacterColour;
+	}
+
+	protected void setStartCharacterColour(int startCharacterColour) {
+		this.startCharacterColour = startCharacterColour;
+	}
+
+	protected int getEndCharacterColour() {
+		return endCharacterColour;
+	}
+
+	protected void setEndCharacterColour(int endCharacterColour) {
+		this.endCharacterColour = endCharacterColour;
 	}
 }
