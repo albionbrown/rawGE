@@ -56,6 +56,6 @@ public class DialogBoxTest implements Controller {
 		dialogBox.setHeight(6);
 		dialogBox.setText("This is a dialog box!");
 		dialogBox.setBackgroundColour(0x000);
-		dialogBox.setBackgroundOpacity(0);
+		dialogBox.setBackgroundOpacity(1);
 	}
 }

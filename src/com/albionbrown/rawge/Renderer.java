@@ -159,9 +159,9 @@ public class Renderer {
 			for (int y = 0; y < height; y++) {
 				
 				int currentColour = p[x + y * pW];
-				int newColour = currentColour;
+				int newColour = (currentColour & 0xfefefe) >> backgroundOpacity;
 				
-				setPixel(x + offX, y + offY, backgroundColour);
+				setPixel(x + offX, y + offY, newColour);
 			}
 		}
 	}
