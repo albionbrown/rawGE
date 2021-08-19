@@ -1,7 +1,5 @@
 package com.albionbrown.rawge.gfx;
 
-import com.albionbrown.rawge.GameContainer;
-
 public class Font {
 	
 //	public static final Font STANDARD = new Font(GameContainer.getSystemPath() + "\\assets\\img\\font_test.png");
@@ -89,27 +87,27 @@ public class Font {
 		this.widths = widths;
 	}
 
-	protected int getNumberOfCharacters() {
+	public int getNumberOfCharacters() {
 		return numberOfCharacters;
 	}
 
-	protected void setNumberOfCharacters(int numberOfCharacters) {
+	public void setNumberOfCharacters(int numberOfCharacters) {
 		this.numberOfCharacters = numberOfCharacters;
 	}
 
-	protected int getStartCharacterColour() {
+	public int getStartCharacterColour() {
 		return startCharacterColour;
 	}
 
-	protected void setStartCharacterColour(int startCharacterColour) {
+	public void setStartCharacterColour(int startCharacterColour) {
 		this.startCharacterColour = startCharacterColour;
 	}
 
-	protected int getEndCharacterColour() {
+	public int getEndCharacterColour() {
 		return endCharacterColour;
 	}
 
-	protected void setEndCharacterColour(int endCharacterColour) {
+	public void setEndCharacterColour(int endCharacterColour) {
 		this.endCharacterColour = endCharacterColour;
 	}
 }

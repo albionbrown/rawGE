@@ -15,11 +15,15 @@ public class Renderer {
 	private GameContainer gc;
 	private int alphaColour = 0xffff00ff;
 	
+	private int defaultColour;
+	
 	public Renderer(GameContainer gc)
 	{
 		this.gc = gc;
 		pW = gc.getWidth();
 		pH = gc.getHeight();
+		
+		defaultColour = 0x000;
 		
 		// Get the pixel data that is rendered in Window.update()
 		p = ((DataBufferInt)gc.getWindow().getImage().getRaster().getDataBuffer()).getData();
@@ -28,7 +32,7 @@ public class Renderer {
 	public void clear()
 	{
 		for (int i = 0; i < p.length; i++) {
-			p[i] = 0x000;
+			p[i] = defaultColour;
 		}
 	}
 	
@@ -138,6 +142,29 @@ public class Renderer {
 			}
 		}
 	}
+	
+	/**
+	 * Draws a square
+	 * @param backgroundColour
+	 * @param backgroundOpacity
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public void drawSquare(int backgroundColour, int backgroundOpacity, int offX, int offY, int width, int height) 
+	{
+//		col = (col & 0xfefefe) >> 1;
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				
+				int currentColour = p[x + y * pW];
+				int newColour = currentColour;
+				
+				setPixel(x + offX, y + offY, backgroundColour);
+			}
+		}
+	}
 
 	public int getAlphaColour() {
 		return alphaColour;
@@ -146,5 +173,12 @@ public class Renderer {
 	public void setAlphaColour(int alphaColour) {
 		this.alphaColour = alphaColour;
 	}
-	
+
+	public int getDefaultColour() {
+		return defaultColour;
+	}
+
+	public void setDefaultColour(int defaultColour) {
+		this.defaultColour = defaultColour;
+	}
 }
