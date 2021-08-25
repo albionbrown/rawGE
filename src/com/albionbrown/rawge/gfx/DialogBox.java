@@ -4,6 +4,12 @@ import com.albionbrown.rawge.Renderer;
 
 public class DialogBox extends Font 
 {
+	
+	public enum Mode
+	{
+		SOLID,
+		FADE;
+	}
 
 	private boolean render;
 	private String text;
@@ -12,10 +18,17 @@ public class DialogBox extends Font
 	
 	private int backgroundColour;
 	private int backgroundOpacity;
+	private Mode mode;
 	
 	public DialogBox()
 	{
 		this.render = false;
+		this.mode = Mode.SOLID;
+	}
+	
+	public DialogBox(Mode mode)
+	{
+		this.mode = mode;
 	}
 
 	public boolean isRender() {
@@ -40,7 +53,13 @@ public class DialogBox extends Font
 			return;
 		
 		// Render background for dialog
-		r.drawSquare(backgroundColour, backgroundOpacity, x, y, width, height);
+		if (mode == Mode.SOLID) {
+			r.drawSquare(backgroundColour, x, y, width, height);
+		}
+		else {
+			r.changeBrightnessinSquare(backgroundOpacity, x, y, width, height);
+		}
+		
 		
 		// Render text
 		r.drawText(this.text, this, this.x, this.y, 0xffffffff);
