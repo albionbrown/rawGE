@@ -1,6 +1,7 @@
 package com.albionbrown.rawge;
 
 import java.awt.image.DataBufferInt;
+import java.awt.Color;
 
 import com.albionbrown.rawge.gfx.Font;
 import com.albionbrown.rawge.gfx.Image;
@@ -146,25 +147,52 @@ public class Renderer {
 	/**
 	 * Draws a square
 	 * @param backgroundColour
+	 * @param x
+	 * @param y
+	 * @param width
+	 * @param height
+	 */
+	public void drawSquare(int backgroundColour, int offX, int offY, int width, int height) 
+	{
+		for (int x = 0; x < width; x++) {
+			for (int y = 0; y < height; y++) {
+				
+				int currentColour = p[x + y * pW];
+				setPixel(x + offX, y + offY, backgroundColour);
+			}
+		}
+	}
+	
+	/**
+	 * Changes the darkness/brightness of a pixel's colour
+	 * within a certain dimension
 	 * @param backgroundOpacity
 	 * @param x
 	 * @param y
 	 * @param width
 	 * @param height
 	 */
-	public void drawSquare(int backgroundColour, int backgroundOpacity, int offX, int offY, int width, int height) 
+	public void changeBrightnessinSquare(int change, int offX, int offY, int width, int height) 
 	{
-//		col = (col & 0xfefefe) >> 1;
 		for (int x = 0; x < width; x++) {
 			for (int y = 0; y < height; y++) {
 				
-				int currentColour = p[x + y * pW];
-				int newColour = (currentColour & 0xfefefe) >> backgroundOpacity;
+				Color colour = new Color(p[x + y * pW]);
+				int newColour = 0;
+				
+				int red = (colour.getRed() + change) >= 0 ? (colour.getRed() + change) : 0;
+				int green = (colour.getGreen() + change) >= 0 ? (colour.getGreen() + change) : 0;
+				int blue = (colour.getBlue() + change) >= 0 ? (colour.getBlue() + change) : 0;
+				
+				newColour = (newColour << 8) | red;
+				newColour = (newColour << 8) | green;
+				newColour = (newColour << 8) | blue;
 				
 				setPixel(x + offX, y + offY, newColour);
 			}
 		}
 	}
+
 
 	public int getAlphaColour() {
 		return alphaColour;
