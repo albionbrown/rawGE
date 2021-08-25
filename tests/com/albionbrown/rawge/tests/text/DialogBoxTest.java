@@ -9,11 +9,14 @@ import com.albionbrown.rawge.gfx.Image;
 public class DialogBoxTest implements Controller {
 	
 	public DialogBox dialogBox;
+	public DialogBox dialogBox2;
 	public Image image;
+	private Image background;
 
 	public DialogBoxTest()
 	{
-		dialogBox = new DialogBox();	
+		dialogBox = new DialogBox(DialogBox.Mode.SOLID);	
+		dialogBox2 = new DialogBox(DialogBox.Mode.FADE);	
 	}
 	
 	public static void main(String[] args)
@@ -40,12 +43,17 @@ public class DialogBoxTest implements Controller {
 	@Override
 	public void render(Renderer r) {
 		// TODO Auto-generated method stub
+		r.drawImage(this.background, 10, 10);
 		dialogBox.render(r);
+		dialogBox2.render(r);
 	}
 	
 	public void init()
 	{
+		
+		background = new Image("/test_img/rawGE_test.png");
 		image = new Image(getClass().getResourceAsStream("/test_img/font_test.png"));
+		
 		dialogBox.setFontImage(image);
 		dialogBox.setNumberOfCharacters(59);
 		dialogBox.readImageCharacters();
@@ -54,8 +62,18 @@ public class DialogBoxTest implements Controller {
 		dialogBox.setY(230);
 		dialogBox.setWidth(100);
 		dialogBox.setHeight(6);
-		dialogBox.setText("This is a dialog box!");
+		dialogBox.setText("This is a solid dialog box!");
 		dialogBox.setBackgroundColour(0x000);
-		dialogBox.setBackgroundOpacity(1);
+		
+		dialogBox2.setFontImage(image);
+		dialogBox2.setNumberOfCharacters(59);
+		dialogBox2.readImageCharacters();
+		dialogBox2.setRender(true);
+		dialogBox2.setX(110);
+		dialogBox2.setY(220);
+		dialogBox2.setWidth(100);
+		dialogBox2.setHeight(6);
+		dialogBox2.setText("This is a faded dialog box!");
+		dialogBox2.setBackgroundOpacity(100);
 	}
 }
