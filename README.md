@@ -20,9 +20,12 @@ Create a class (E.g. GameController) that has the `public static void main()` en
       }
     }
 
-This class will be the class for initialising and controlling rawGE. Inside your `main()` method, create an instance of GameController and get an instance of the RawGE `GameContainer`.
+This class will be responsible for initialising and controlling RawGE, while also containing most of your high-level logic. 
+
+Inside your `main()` method, create an instance of `GameController` and get an instance of the RawGE `GameContainer`.
 
     public static void main(String[] args) {
+      // An instance of the current class
       GameController gamecontroller = new GameController();
 
       // Creates a window with title "Example Game", with dimensions of 1280 by 960 pixels. The instance of 
@@ -32,7 +35,7 @@ This class will be the class for initialising and controlling rawGE. Inside your
       gc.start();
     }
 
-When the `start()` method in the `Game Container` class is called, the game loop begins. But before this happens, 2 new methods must be implemented in the `GameController` class.
+When `GameContainer::start()` is called, the game loop begins. But before this happens, 2 new methods must be implemented in the `GameController` class.
 
     public void update(GameContainer gc);
 	public void render(Renderer r);
